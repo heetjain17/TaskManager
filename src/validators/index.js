@@ -10,7 +10,12 @@ const userRegistrationValidator = () => {
             .trim()
             .notEmpty().withMessage('username is required')
             .isLength({min: 3}).withMessage('Username should contain 3-13 characters')
-            .isLength({max: 3}).withMessage('Username should contain 3-13 characters'),
+            .isLength({max: 13}).withMessage('Username should contain 3-13 characters'),
+        body('password')
+            .trim()
+            .notEmpty().withMessage('password is required')
+            .isLength({min: 6}).withMessage('Password should contain 6-30 characters')
+            .isLength({max: 30}).withMessage('Password should contain 6-30 characters'),
     ]
 }
 
@@ -22,4 +27,17 @@ const userLoginValidator = () => {
             .notEmpty().withMessage('Password cannot be empty ')
     ]
 }
-export {userRegistrationValidator, userLoginValidator}
+
+const forgotPasswordValidator = () => {
+    return [
+        body('newPassword')
+        .trim()
+        .notEmpty().withMessage('password is required')
+        .isLength({min: 6}).withMessage('Password should contain 6-30 characters')
+        .isLength({max: 30}).withMessage('Password should contain 6-30 characters'),
+    ]
+}
+export {userRegistrationValidator, 
+    userLoginValidator,
+    forgotPasswordValidator,
+}

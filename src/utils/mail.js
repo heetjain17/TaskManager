@@ -1,6 +1,7 @@
 import Mailgen from 'mailgen'
 import {createTransport} from 'nodemailer'
 import dotenv from "dotenv"
+import { ApiError } from './api-error.js';
 dotenv.config();
 
 
@@ -37,7 +38,7 @@ const sendMail = async (options) => {
     try {
         await transporter.sendMail(mail)
     } catch (error) {
-        console.error("Email failed", error);
+        return next(ApiError(500, 'Failed to send email', err))
     }
 }
 
@@ -67,7 +68,7 @@ const forgotPasswordContent = (username, resetPasswordUrl) => {
             action: {
                 instructions: 'To change the password click the button given below',
                 button: {
-                    color: '##ff0000', 
+                    color: '#ff0000', 
                     text: 'reset password',
                     link: resetPasswordUrl,
                 }
@@ -77,8 +78,4 @@ const forgotPasswordContent = (username, resetPasswordUrl) => {
     };
 }
 
-// sendMail({
-//     eamil: user.email,
-//     subject: 'hfyegfyeg ',
-//     mailGenContent: emailVerificationContent(username, ``)
-// })
+export {sendMail, emailVerificationContent, forgotPasswordContent}

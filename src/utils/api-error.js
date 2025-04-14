@@ -4,13 +4,12 @@ class ApiError extends Error{
         message ,
         error = [],
         stack = "",
-        success,a
     ){
         super(message);
         this.statusCode = statusCode
         this.message = message
         this.success = false
-        this.errors = errors
+        this.errors = error
 
         if(stack){
             this.stack = stack
@@ -20,4 +19,16 @@ class ApiError extends Error{
     }
 }
 
-export {ApiError}
+class ApiSuccess {
+    constructor(
+        statuscode,
+        message,
+        info,
+    ) {
+        this.statusCode = statuscode,
+        this.message = message,
+        this.info = info,
+        this.success = true
+    }
+}
+export {ApiError, ApiSuccess}
